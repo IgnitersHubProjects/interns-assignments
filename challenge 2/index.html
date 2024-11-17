@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arithmetic Expression Solver - Challenge 2</title>
+  </head>
+  <body>
+    <h1>Arithmetic Expression Solver - Challenge 2</h1>
+    <input type="file" id="fileInput" accept=".txt" />
+    <button onclick="processFile()">Solve Expressions</button>
+    <a id="downloadLink" style="display: none">Download Result</a>
+
+    <script>
+      function isValidExpression(expr) {
+        return /^[0-9+\-*/^().\[\]{} ]+$/.test(expr);  //regex expression
+      }
+
+      function cleanExpression(expr) {
+        expr = expr.replace(/–|—/g, "-");
+        expr = expr.replace(/(\d)\(/g, "$1*(");
+        expr = expr.replace(/\)(\d)/g, ")*$1");
+        expr = expr.replace(/\)\(/g, ")*(");
+
+        return expr;
+      }
+
+      function evaluateExpression(expr) {
+        try {
+          expr = expr.replace(/\^/g, "**");
+          return Function(`"use strict"; return (${expr});`)();
+        } catch (e) {
+          return "Invalid Expression";
+        }
+      }
+
+      function processFile() {
+        const fileInput = document.getElementById("fileInput");
+        if (fileInput.files.length === 0) {
+          alert("Please select a file.");
+          return;
+        }
+
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function () {
+          const lines = reader.result.split("\n");
+          const outputLines = [];
+
+          lines.forEach((line) => {
+            line = line.trim();
+            if (line.endsWith("=")) {
+              const expression = cleanExpression(line.slice(0, -1).trim());
+              if (isValidExpression(expression)) {
+                const result = evaluateExpression(expression);
+                outputLines.push(`${line} ${result}`);
+              } else {
+                outputLines.push(`${line} Invalid Expression`);
+              }
+            } else {
+              outputLines.push(`${line} Invalid Expression`);
+            }
+          });
+
+          // output file for download
+          const outputContent = outputLines.join("\n");
+          const blob = new Blob([outputContent], { type: "text/plain" });
+          const url = URL.createObjectURL(blob);
+          const downloadLink = document.getElementById("downloadLink");
+          downloadLink.href = url;
+          downloadLink.download = "output.txt";
+          downloadLink.style.display = "block";
+          downloadLink.textContent = "Download Result File";
+        };
+
+        reader.readAsText(file);
+      }
+    </script>
+  </body>
+</html>

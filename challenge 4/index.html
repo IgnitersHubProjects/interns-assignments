@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Palindrome Checker - Challenge 4</title>
+    <style>
+        h1 {
+            text-align: center;
+            color: skyblue;
+            font-size: 70px;
+        }   
+        button{
+            display: block;
+            margin:0 auto;
+            padding: 10px 40px;
+            font-size: 25px;
+            color:grey;
+            background-color:aliceblue;
+            border: 1px solid black;
+        }
+        #result{
+            font-size: 25px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1> Palindrome Checker - Challenge 4 </h1>
+        <button onclick="checkPalindrome()"> Check </button>
+        <p id="result"> </p>
+
+    <script>
+        function checkPalindrome() {
+            var word = prompt("Enter any String:");
+            var letters = word.split("");
+            var reversedLetters = letters.reverse();
+            var joinWord = reversedLetters.join("");
+
+            if (joinWord.toLowerCase() == word.toLowerCase()) {
+                document.getElementById("result").innerText = "The given word is a palindrome";
+            }
+            else {
+                document.getElementById("result").innerText = "The given word is not a palindrome";
+            }
+        }
+    </script>
+</body>
+
+</html>
