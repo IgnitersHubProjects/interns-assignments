@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Approximate Search</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      color: #333;
+    }
+    .heading {
+      background-color: #246bfd;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 12vh;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 10px;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #246bfd;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    h3 {
+      margin-top: 20px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      padding: 10px;
+      background-color: #f9f9f9;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+    .subh{
+      display: flex;
+      justify-content: center;
+      margin: 5%;
+    }
+    #suggestions{
+      margin: 3%;
+    }
+  </style>
+</head>
+<body>
+  <h1 class="heading">Approximate Search</h1>
+  <h3 class="subh">Enter a word to find its matching words</h3>
+  <div class="container">
+    <label for="search">Enter a word:</label>
+    <input type="text" id="search" placeholder="Type here..." />
+    <button onclick="search()">Search</button>
+    <h3>Suggestions:</h3>
+    <ul id="suggestions"></ul>
+  </div>
+
+  <script>
+    async function search() {
+      const query = document.getElementById('search').value;
+      const response = await fetch(`/search?q=${encodeURIComponent(query)}`);
+      const suggestions = await response.json();
+      const suggestionsList = document.getElementById('suggestions');
+      suggestionsList.innerHTML = '';
+      suggestions.forEach(word => {
+        const listItem = document.createElement('li');
+        listItem.textContent = word;
+        suggestionsList.appendChild(listItem);
+      });
+    }
+  </script>
+</body>
+</html>

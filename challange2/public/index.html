@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arithmetic Expression Solver</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .heading {
+            background-color: #246bfd;
+            color: white;
+            width: 100%;
+            text-align: center;
+            padding: 1rem;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .container {
+            background-color: white;
+            width: 90%;
+            max-width: 500px;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-left: 32%;
+            margin-top: 14vh;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="file"] {
+            border: 1px solid #ccc;
+            padding: 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="file"]:hover {
+            border-color: #246bfd;
+        }
+
+        button {
+            background-color: #246bfd;
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #004abf;
+        }
+
+        #result {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: #777;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="heading">Arithmetic Expression Solver</h1>
+    <div class="container">
+        <form id="uploadForm" action="/process-file" method="post" enctype="multipart/form-data">
+            <label for="file">Upload your input file:</label>
+            <input type="file" id="file" name="file" accept=".txt" required>
+            <button type="submit">Process</button>
+        </form>
+        <div id="result">
+            Once the result is computed, the downloadable file will appear here.
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
