@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "mathjs": "^14.0.1",
+    "nodemailer": "^6.9.16"
+  }
+}
