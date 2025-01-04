@@ -1,38 +1,58 @@
-import fs from 'fs'
-import PromptSync from 'prompt-sync'
-import { evaluate } from 'mathjs'
+import { readFile, writeFile } from 'fs'
 
-const prompt = PromptSync()
-
-function evaluateExpression(expression) {
-  try {
-    expression = expression.replace(/\^/g, '**')
-    return evaluate(expression)
-  } catch (error) {
-    return 'Error'
+function evaluateExpressions(inputFile, outputFile) {
+  const preprocessExpression = (expression) => {
+    return expression
+      .replace(/\)\(/g, ')*(')
+      .replace(/(\d)(\()/g, '$1*(')
+      .replace(/(\))(\d)/g, ')*$2')
   }
-}
 
-const inputFile = prompt('Enter the input file name: ')
-const outputFile = prompt('Enter the output file name: ')
+  const evaluateExpression = (expression) => {
+    try {
+      expression = preprocessExpression(expression)
+      expression = expression.replace(/\^/g, '**')
+      const result = Function(`return (${expression});`)()
+      return result
+    } catch (error) {
+      return `Error: ${error.message}`
+    }
+  }
 
-try {
-  const expressions = fs.readFileSync(inputFile, 'utf8').split('\n')
+  readFile(inputFile, 'utf8', (err, data) => {
+    if (err) {
+      console.error(`Error reading input file: ${err.message}`)
+      return
+    }
 
-  const results = expressions.map((expression) => {
-    if (expression.trim() === '') return ''
+    const lines = data.split('\n')
+    const results = lines.map((line) => {
+      const match = line.match(/^(.*?)(\s*=)\s*$/)
+      console.log(match)
+      if (match) {
+        const expression = match[1].trim()
+        if (expression) {
+          const result = evaluateExpression(expression)
+          return `${expression} = ${result}`
+        } else {
+          return `Invalid expression: ${line}`
+        }
+      } else {
+        return `Invalid expression: ${line}`
+      }
+    })
 
-    const [lhs] = expression.split('=')
-    if (!lhs) return `${expression.trim()} Error`
-
-    const value = evaluateExpression(lhs.trim())
-    return `${lhs.trim()} = ${value}`
+    writeFile(outputFile, results.join('\n'), 'utf8', (err) => {
+      if (err) {
+        console.error(`Error writing output file: ${err.message}`)
+      } else {
+        console.log(`Results written to ${outputFile}`)
+      }
+    })
   })
-
-  fs.writeFileSync(outputFile, results.join('\n'))
-  console.log(`Results have been written to ${outputFile}`)
-} catch (error) {
-  console.error(
-    'Error processing files. Please ensure file paths and content are correct.'
-  )
 }
+
+const inputFile = 'expressions.txt'
+const outputFile = 'output.txt'
+
+evaluateExpressions(inputFile, outputFile)
