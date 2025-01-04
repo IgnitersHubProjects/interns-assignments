@@ -3,7 +3,6 @@ import PromptSync from 'prompt-sync'
 
 const prompt = PromptSync()
 
-// Function to calculate Levenshtein Distance
 function levenshteinDistance(a, b) {
   const dp = Array.from({ length: a.length + 1 }, () =>
     Array(b.length + 1).fill(0)
@@ -25,7 +24,6 @@ function levenshteinDistance(a, b) {
   return dp[a.length][b.length]
 }
 
-// Function to find the top k closest matches
 function getClosestWords(inputWord, words, topK = 3) {
   const distances = words.map((word) => ({
     word,
@@ -36,7 +34,6 @@ function getClosestWords(inputWord, words, topK = 3) {
   return distances.slice(0, topK).map((d) => d.word)
 }
 
-// Main program
 const fileName = prompt('Enter the file name: ')
 try {
   const file = fs.readFileSync(fileName, 'utf8')
