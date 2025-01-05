@@ -1,0 +1,17 @@
+{
+  "name": "evaluate_arithmetic_expression",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "mathjs": "^14.0.1",
+    "prompt-sync": "^4.2.0"
+  }
+}
