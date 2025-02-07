@@ -1,0 +1,9 @@
+def check(s):
+    return s == s[::-1]
+word=input("Enter the word")
+a=check(word)
+if a:
+    print(f"The string ''{word}'' is a palindrome.")
+else:
+     print(f"The string ''{word}'' is not palindrome.")
+    
