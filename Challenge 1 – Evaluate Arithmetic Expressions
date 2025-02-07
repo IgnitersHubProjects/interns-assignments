@@ -1,0 +1,27 @@
+import re
+def solve_expression(expression):
+    expression = expression.replace('^', '**')
+    
+    try:
+        result = eval(expression)
+        return result
+    except Exception as e:
+        return f"Error: {str(e)}"
+def process_file(input_filename, output_filename):
+    try:
+        with open(input_filename, 'r') as infile, open(output_filename, 'w') as outfile:
+            for line in infile:
+                line = line.strip()
+                if not line:
+                    continue
+                if line.endswith('='):
+                    line = line[:-1].strip()
+                result = solve_expression(line)
+                outfile.write(f"{line} = {result}\n")
+        
+        print(f"Results have been written to '{output_filename}'.")
+
+    except FileNotFoundError:
+        print(f"Error: The file '{input_filename}' was not found.")
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
