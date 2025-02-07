@@ -1,0 +1,42 @@
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.image import MIMEImage
+import os
+def send_email():
+    recipient_email = "hr@ignitershub.com"
+    sender_email = "vaibhav27bhatt03@gmail.com" 
+    sender_password = "viu27bhatt03@@@@@27" 
+   
+
+    subject = "Challenge 3 Completed"
+    body = """
+    Name: Vaibhav Bhatt
+    Semester: 7
+    Branch: Computer Science and Engineering
+    Roll Number: 210050101059
+    """
+    msg = MIMEMultipart()
+    msg['From'] = sender_email
+    msg['To'] = recipient_email
+    msg['Subject'] = subject
+    msg.attach(MIMEText(body, 'plain'))
+     image_url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPquIlT0KB7leL2D8hwrHurDidVmzziIm6Cg&s"  
+        image_data = download_image(image_url)
+        if image_data:
+            img = MIMEImage(image_data)
+            message.attach(img)
+        else:
+            print("Image not found or failed to download.")
+            return
+    try:
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+        server.login(sender_email, sender_password)
+        server.sendmail(sender_email, recipient_email, msg.as_string())
+        server.quit()
+        print("Email sent successfully!")
+    except Exception as e:
+        print(f"Error: {e}")
+send_email()
+#Lot of help has been taken for this particular task...
