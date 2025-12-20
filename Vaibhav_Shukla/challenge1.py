@@ -1,5 +1,5 @@
-import difflib  (for approximate string matching)
-
+import difflib   
+# approximate string matching library
 # read words from file
 with open(r"D:\git-work\interns-assignments\Vaibhav_Shukla\words.txt", "r") as file:
     words = [line.strip() for line in file]
