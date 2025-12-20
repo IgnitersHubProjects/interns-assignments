@@ -1,4 +1,4 @@
-import difflib
+import difflib  (for approximate string matching)
 
 # read words from file
 with open(r"D:\git-work\interns-assignments\Vaibhav_Shukla\words.txt", "r") as file:
@@ -12,11 +12,11 @@ while True:
     if user_input == "exit":
         break
 
-    k = int(input("Enter k >> "))
+    k = int(input("Enter k >> "))     
 
     matches = difflib.get_close_matches(
         user_input, words, n=k, cutoff=0.6
-    )
+    )  # find k similar words with at least 60% similarity  
 
     if matches:
         print("Output >>", ", ".join(matches))
