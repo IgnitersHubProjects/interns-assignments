@@ -1,45 +1,18 @@
-import smtplib
-from email.message import EmailMessage
-import os
+# simple arithmetic expression solver using full file paths
 
-name = "Vaibhav Shukla"
-semester = "5"
-branch = "BTech Data Science"
-roll_no = "500106855"
+input_file = r"D:\git-work\interns-assignments\Vaibhav_Shukla\input.txt"
+output_file = r"D:\git-work\interns-assignments\Vaibhav_Shukla\output.txt"
 
-image_path = r"D:\git-work\interns-assignments\Vaibhav_Shukla\image.jpg"
+with open(input_file, "r") as inp, open(output_file, "w") as out:
+    
+    for line in inp:
+        expression = line.replace("=", "").strip()         # cleaning the expression and replacing ^ with ** and removing =
+        expression = expression.replace("^", "**")
 
-if not os.path.exists(image_path):
-    print("Image not found")
-    exit()
+        try:
+            answer = eval(expression)            # evaluating the expression 
+            out.write(f"{expression} = {answer}\n")
+        except:
+            out.write(f"{expression} = Error\n")
 
-msg = EmailMessage()
-msg["From"] = "student@test.com"
-msg["To"] = "hr@ignitershub.com"
-msg["Subject"] = "Challenge 3 Completed"
-
-msg.set_content(
-    "Name: " + name + "\n"
-    "Semester: " + semester + "\n"
-    "Branch: " + branch + "\n"
-    "Roll Number: " + roll_no
-)
-
-with open(image_path, "rb") as f:
-    msg.add_attachment(
-        f.read(),
-        maintype="image",
-        subtype="jpeg",
-        filename="image.jpg"
-    )
-
-server = smtplib.SMTP("localhost", 1025)
-server.send_message(msg)
-server.quit()
-
-print("Email sent")
-
-#use this in terminal     python -m aiosmtpd -n -l localhost:1025
-#run the code 
-#Due to strict security restrictions on Gmail and Outlook, automated SMTP authentication was blocked during development.
-#Therefore, a local SMTP debugging server was used by me as a last resort to demonstrate programmatic email triggering.
+print("Done! Check output file in the repo output.txt")
