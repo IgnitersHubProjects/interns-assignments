@@ -4,14 +4,12 @@ import smtplib
 from email.message import EmailMessage
 
 # =========================
-# CONFIG (EDIT THESE ONCE)
+# SETTINGS
 # =========================
+DRY_RUN = True   # ✅ Keep True in GitHub. Set False only when YOU want to send mail.
 
-SENDER_EMAIL = "joshiharshit0710@gmail.com"      # ✅ Your email
-APP_PASSWORD = "mffp zovu huih ywey "    # ✅ Gmail App Password (NOT normal password)
-
+SENDER_EMAIL = "joshiharshit0710@gmail.com"
 RECEIVER_EMAIL = "hr@ignitershub.com"
-
 SUBJECT = "Challenge 3 Completed"
 
 NAME = "Harshit Joshi"
@@ -19,11 +17,7 @@ SEMESTER = "7th"
 BRANCH = "CSE"
 ROLL_NO = "220050101042"
 
-# Put your image in same folder as this code OR give full path
-IMAGE_PATH = "FORM IMAGE.jpg"  # ✅ Example: "photo.jpg" / "image.png"
-
-
-# ✅ Only allow these image types
+IMAGE_PATH = "FORM IMAGE.jpg"
 ALLOWED_IMAGE_TYPES = {"image/png", "image/jpeg"}
 
 
@@ -38,7 +32,7 @@ def validate_image_file(image_path: str):
     return mime_type
 
 
-def send_email():
+def build_email():
     mime_type = validate_image_file(IMAGE_PATH)
 
     msg = EmailMessage()
@@ -63,7 +57,6 @@ Regards,
 
     msg.set_content(body)
 
-    # Attach image
     with open(IMAGE_PATH, "rb") as f:
         img_data = f.read()
 
@@ -75,16 +68,30 @@ Regards,
         filename=os.path.basename(IMAGE_PATH)
     )
 
-    # Gmail SMTP
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
-        smtp.login(SENDER_EMAIL, APP_PASSWORD)
-        smtp.send_message(msg)
+    return msg
 
-    print("✅ Email sent successfully to hr@ignitershub.com")
+
+def send_email(msg: EmailMessage, app_password: str):
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
+        smtp.login(SENDER_EMAIL, app_password)
+        smtp.send_message(msg)
 
 
 if __name__ == "__main__":
     try:
-        send_email()
+        msg = build_email()
+
+        if DRY_RUN:
+            print("✅ DRY RUN MODE (No email sent).")
+            print("✅ Email created successfully with subject, body, and attachment.")
+            print(f"To: {msg['To']}")
+            print(f"Subject: {msg['Subject']}")
+            print(f"Attachment: {IMAGE_PATH}")
+        else:
+            app_password = input("Enter Gmail App Password: ").strip()
+            send_email(msg, app_password)
+            print("✅ Email sent successfully to hr@ignitershub.com")
+
     except Exception as e:
         print(f"❌ Failed: {e}")
+
