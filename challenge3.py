@@ -19,7 +19,7 @@ body = """
 Name: Divyanshu Puri
 Semester: 7
 Branch: CSE
-This email is to inform you that I have successfully completed Challenge 3, which involved sending an email with an image attachment using Python. The email was sent using the smtplib library, and the image was attached as a JPEG file. Please find the attached image for your reference.
+This email is to inform you that I have successfully completed Challenge 3
 """
 
 msg.set_content(body)
