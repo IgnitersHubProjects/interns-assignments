@@ -23,17 +23,18 @@ public class App
 
         System.out.printf("\nenter text to search : ");
         String searchTerm = scanner.nextLine();
-        System.out.printf("\nenter desired top words count : ");
+        System.out.printf("\nenter value of k : ");
         int topWordsCount = Integer.parseInt(scanner.nextLine());
 
         scanner.close();
 
         //find top k matching words
         ArrayList<String> topKMatchingWords = WordSearcher.search(candidateWords, searchTerm, topWordsCount );
-        System.out.printf("\ntop k matching words\n");
+        System.out.printf("\ntop k matching words-------------------------\n");
         for (String word : topKMatchingWords){
             System.out.printf("\n%s\n", word);
         }
+        System.out.printf("\n---------------------------------------------------\n");
 
 
     }

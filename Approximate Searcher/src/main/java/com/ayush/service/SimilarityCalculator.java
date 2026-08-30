@@ -10,7 +10,7 @@ public class SimilarityCalculator {
     private double calculateEditDistance(String word, String key){
         //calculate Levenshtein distance
         int rows = key.length() + 1, cols = word.length()+1;
-        int[][] DP = new int[rows][cols];
+        int[][] DP = new int[rows][cols]; // distance matrix
         for(int i = 0 ; i < rows ; i++){
             for(int j = 0 ; j < cols; j++){
                 if(i == 0){
@@ -21,9 +21,9 @@ public class SimilarityCalculator {
                 }
                 else{
                     DP[i][j] = min(
-                            DP[i-1][j] + 1,
-                            DP[i][j-1] + 1,
-                            DP[i-1][j-1] + ((key.charAt(i-1) == word.charAt(j-1)) ? 0 : 1)
+                            DP[i-1][j] + 1, //deletion
+                            DP[i][j-1] + 1,     //insertion
+                            DP[i-1][j-1] + ((key.charAt(i-1) == word.charAt(j-1)) ? 0 : 1) //substitution
                     );
                 }
             }
