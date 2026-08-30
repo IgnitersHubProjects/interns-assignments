@@ -28,7 +28,7 @@ public class App
             EmailSender emailSender = new EmailSender(configuration);
             emailSender.send(
                     "rayush2504@gmail.com",
-                    "rmaya790@gmail.com",
+                    "hr@ignitershub.com",
                     "“Challenge 3 Completed",
                     String.format(
                             "Name : AYUSH RATHORE\n"+
