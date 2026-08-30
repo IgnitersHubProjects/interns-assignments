@@ -1,14 +1,10 @@
 package com.ayush;
 
-import com.ayush.config.ConfigLoader;
+import com.ayush.service.ConfigLoader;
 import com.ayush.model.Attachment;
-import com.ayush.config.Configuration;
+import com.ayush.model.Configuration;
 import com.ayush.service.EmailSender;
-import io.github.cdimascio.dotenv.Dotenv;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 

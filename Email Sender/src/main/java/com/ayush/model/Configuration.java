@@ -1,4 +1,4 @@
-package com.ayush.config;
+package com.ayush.model;
 
 public class Configuration {
     private String host;

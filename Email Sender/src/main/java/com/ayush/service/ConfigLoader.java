@@ -1,7 +1,8 @@
-package com.ayush.config;
+package com.ayush.service;
 
 
 
+import com.ayush.model.Configuration;
 import io.github.cdimascio.dotenv.Dotenv;
 
 import java.io.IOException;
