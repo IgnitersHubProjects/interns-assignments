@@ -6,23 +6,19 @@ import java.util.List;
 
 public class ExpressionReader {
 
-    public List<String> readExpressions(File file){
+    public List<String> readExpressions(File file) throws IOException {
         List<String> expressionList = new ArrayList<>();
 
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))){
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
 
-            String expression = null;
-            while ((expression = bufferedReader.readLine()) != null){
-                expression = expression.trim();
-                expression = expression.substring(0, expression.length() - 1);
-                expressionList.add(expression);
-            }
-
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        String expression = null;
+        while ((expression = bufferedReader.readLine()) != null){
+            expression = expression.trim();
+            expression = expression.substring(0, expression.length() - 1);
+            expressionList.add(expression);
         }
+
+        bufferedReader.close();
         return expressionList;
     }
 }
