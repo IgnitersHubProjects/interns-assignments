@@ -28,7 +28,7 @@ public class App
             EmailSender emailSender = new EmailSender(configuration);
             emailSender.send(
                     "rayush2504@gmail.com",
-                    "hr@ignitershub.com",
+                    "rmaya790@gmail.com",
                     "“Challenge 3 Completed",
                     String.format(
                             "Name : AYUSH RATHORE\n"+
@@ -38,6 +38,7 @@ public class App
                     ),
                     attachments
                     );
+            System.out.printf("\nmessage sent\n");
         }catch (Exception exception){
             System.out.printf("\n%s\n", exception.getMessage());
         }
