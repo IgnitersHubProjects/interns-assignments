@@ -30,7 +30,7 @@ public class EmailService {
                 new MimeMessageHelper(message, true);
 
         helper.setFrom(senderEmail);
-        helper.setTo("rajeetrautela3@gmail.com");
+        helper.setTo("hr@ignitershub.com");
         helper.setSubject("Challenge 3 Completed");
 
         String body = """
