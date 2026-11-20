@@ -1,4 +1,4 @@
-HEAD
+
 \# Igniters Hub – Python Programming Assignment
 
 
