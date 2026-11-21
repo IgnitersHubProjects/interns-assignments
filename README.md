@@ -95,7 +95,7 @@ python main.py
 
 ## Author
 
-**Pooja**
+**Pooja Chamyal**
 
 ## Acknowledgement
 
