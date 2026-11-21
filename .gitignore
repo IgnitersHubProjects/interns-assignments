@@ -1,0 +1,7 @@
+/target/
+/answers.txt
+/.idea/
+*.iml
+.env
+/Assignment2/answers.txt
+*.class
